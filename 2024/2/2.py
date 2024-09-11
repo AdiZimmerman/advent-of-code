@@ -1,7 +1,6 @@
 import math
 from collections import defaultdict
 
-
 def part_one(filename: str) -> int:
 	TOTAL = {"red": 12, "green": 13, "blue": 14}
 

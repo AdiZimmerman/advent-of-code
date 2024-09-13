@@ -62,7 +62,7 @@ def part_two(filename: str) -> int:
 			if 0 <= adj_r < rows and 0 <= adj_c < cols and matrix[adj_r][adj_c].isdigit() and (adj_r, adj_c) not in seen:
 				nums.append(expand_num(adj_r, adj_c, seen))
 		if len(nums) != 2:
-			return 0
+			return 0 # wipe the numbers if not exactly two part numbers..
 		return nums[0] * nums[1]
 
 	res: int = 0

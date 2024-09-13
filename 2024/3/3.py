@@ -2,7 +2,7 @@ def part_one(filename: str) -> int:
 	matrix = []
 	with open(filename) as f:
 		for line in f:
-			matrix.append(list(line))
+			matrix.append(list(line)[:-1]) # removes the next line character '\n'..
 
 	rows, cols = len(matrix), len(matrix[0])
 
@@ -16,16 +16,16 @@ def part_one(filename: str) -> int:
 		return False
 
 	def find_num(r, c) -> int:
-		valid = False
+		found_adjacent_symbol = False
 		n = 0
 		while c < len(matrix[0]) and matrix[r][c].isdigit():
 			n = n * 10 + int(matrix[r][c])
-			if not valid:
-				valid = adjacent_symbol(r, c)
+			if not found_adjacent_symbol:
+				found_adjacent_symbol = adjacent_symbol(r, c)
 			c += 1
-		if valid:
-			return n
-		return 0
+		if not found_adjacent_symbol:
+			return 0 # wipe the number if no symbol found..
+		return n
 
 	res: int = 0
 	for r in range(rows):

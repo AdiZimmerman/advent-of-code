@@ -1,45 +1,21 @@
 filename = 'input.txt'
 lines = [line.strip() for line in open(filename)]
 
-def part_one() -> int:
-	position = 50
-	ans = 0
-	for line in lines:
-		direction = line[0]
-		rotation = int(line[1:])
-		mul = 1 if direction == 'R' else -1
-		tmp = position + (mul * rotation)
+position = 50
+part_one, part_two = 0, 0
+for line in lines:
+	rotation = int(line[1:]) * (1 if line[0] == 'R' else -1)
+	tmp = position + rotation
 
-		# calculate
-		if tmp % 100 == 0:
-			ans += 1
+	part_one += tmp % 100 == 0
 
-		tmp = tmp % 100
-		position = tmp
-	return ans
+	if tmp == 0:
+		part_two += 1
+	elif tmp > 0:
+		part_two += tmp // 100
+	else: # tmp < 0
+		part_two += abs(tmp // 100) - (position == 0) + (tmp % 100 == 0)
 
-def part_two() -> int:
-	position = 50
-	ans = 0
-	for line in lines:
-		direction = line[0]
-		rotation = int(line[1:])
-		mul = 1 if direction == 'R' else -1
-		tmp = position + (mul * rotation)
+	position = tmp % 100
 
-		# calculate
-		passed = 0
-		if tmp == 0:
-			ans += 1
-		elif tmp > 0:
-			passed = tmp // 100
-		else: # tmp < 0
-			passed = abs(tmp // 100) - (position == 0) + (tmp % 100 == 0)
-		ans += passed
-
-		tmp = tmp % 100
-		position = tmp
-	return ans
-
-print(part_one())
-print(part_two())
+print(part_one, part_two)
